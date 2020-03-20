@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessagePattern } from '@nestjs/microservices';
+import { OrderResponse } from './modules/order/entity/order.response';
 
 @Controller('order-service')
 export class AppController {
@@ -9,10 +10,5 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
-  }
-
-  @MessagePattern({cmd: 'getOrders'})
-  getOrders(): any {
-    return this.appService.getOrders();
   }
 }
