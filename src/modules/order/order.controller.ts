@@ -1,8 +1,9 @@
-import { Controller, Get, Query, Post, Body, Param } from "@nestjs/common";
+import { Controller, Get, Query, Post, Body, Param, UsePipes } from "@nestjs/common";
 import { OrderRequest } from "./entity/order.request";
 import { OrderService } from "./order.service";
 import { OrderResponse } from "./entity/order.response";
 import { MessagePattern, Payload } from "@nestjs/microservices";
+import { ValidationPipe } from "../../infrastructure/validation.pipe";
 
 @Controller('orders')
 export class OrderController {
@@ -27,6 +28,7 @@ export class OrderController {
   }
 
   @Post()
+  @UsePipes(ValidationPipe)
   async createOrder(@Body() orderRequest: OrderRequest): Promise<OrderResponse> {
     return await this.orderService.createOrder(orderRequest)
   }
